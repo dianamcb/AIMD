@@ -1,0 +1,122 @@
+&GLOBAL
+  PROJECT aimd_water
+  RUN_TYPE MD             
+  IOLEVEL  LOW 
+&END GLOBAL
+
+&FORCE_EVAL
+  METHOD Quickstep
+  &DFT
+    BASIS_SET_FILE_NAME  /afs/cad/linux/cp2k/6.1.0/data/BASIS_MOLOPT
+    POTENTIAL_FILE_NAME  /afs/cad/linux/cp2k/6.1.0/data/POTENTIAL
+
+    CHARGE 0
+    MULTIPLICITY 1
+
+    &MGRID
+       CUTOFF [Ry] 400 
+    &END
+
+    &QS
+       METHOD GPW 
+       EPS_DEFAULT 1.0E-10
+       EXTRAPOLATION ASPC 
+    &END
+
+    &POISSON
+       PERIODIC XYZ
+    &END
+
+
+    &SCF                              
+      SCF_GUESS ATOMIC 
+      MAX_SCF 200
+      EPS_SCF 1.0E-5 
+      &OT
+        PRECONDITIONER FULL_SINGLE_INVERSE
+        MINIMIZER DIIS
+      &END OT
+      &OUTER_SCF 
+        MAX_SCF 50
+        EPS_SCF 1.0E-5 
+      &END
+      &PRINT
+        &RESTART OFF
+        &END
+      &END
+    &END SCF
+
+    &XC #revPBE-D3
+      &XC_FUNCTIONAL 
+         &PBE
+           PARAMETRIZATION revPBE
+         &END PBE
+      &END XC_FUNCTIONAL
+
+      &VDW_POTENTIAL
+         POTENTIAL_TYPE PAIR_POTENTIAL
+         &PAIR_POTENTIAL
+            TYPE DFTD3
+            R_CUTOFF 9
+            LONG_RANGE_CORRECTION TRUE
+            REFERENCE_FUNCTIONAL revPBE
+            PARAMETER_FILE_NAME /afs/cad/linux/cp2k/6.1.0/data/dftd3.dat
+         &END
+      &END
+    &END XC
+  &END DFT
+ 
+  &SUBSYS
+    &CELL 
+A [angstrom]               18.64459490    0.00000000    0.00000000
+B [angstrom]                0.00000000   18.64459490    0.00000000
+C [angstrom]                0.00000000    0.00000000   18.64459490
+            PERIODIC XYZ
+    &END CELL
+
+    &COORD
+     @INCLUDE 216w.xyz
+    &END 
+
+    &KIND H              
+      BASIS_SET DZVP-MOLOPT-SR-GTH  
+      POTENTIAL GTH-PBE-q1          
+    &END KIND
+    &KIND O
+      BASIS_SET DZVP-MOLOPT-SR-GTH
+      POTENTIAL GTH-PBE-q6
+    &END KIND
+  &END SUBSYS
+&END FORCE_EVAL
+
+&MOTION
+ &MD
+   ENSEMBLE NVT  
+   TEMPERATURE [K] 298
+   TIMESTEP [fs] 1.0
+   STEPS 1000
+
+   &THERMOSTAT
+     REGION GLOBAL
+     TYPE NOSE
+      &NOSE
+      LENGTH 4
+      MTS 4
+      TIMECON 50
+      YOSHIDA 7
+      &END NOSE
+   &END THERMOSTAT
+ &END
+  &PRINT
+   &TRAJECTORY
+     &EACH
+       MD 10
+     &END EACH
+   &END TRAJECTORY
+   &VELOCITIES OFF
+   &END VELOCITIES
+   &FORCES OFF
+   &END FORCES
+&END
+&END
+&END
