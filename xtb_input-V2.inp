@@ -1,7 +1,7 @@
 &GLOBAL
 	RUN_TYPE MD
 	PRINT_LEVEL LOW
-	PROJECT_NAME xtb-meta-V1
+	PROJECT_NAME xtb-meta-V2
 &END GLOBAL
 
 &FORCE_EVAL
@@ -11,7 +11,7 @@
    &DFT
 		BASIS_SET_FILE_NAME  /afs/cad/linux/cp2k/6.1.0/data/BASIS_MOL      OPT
 		POTENTIAL_FILE_NAME  /afs/cad/linux/cp2k/6.1.0/data/POTENTIAL
-		CHARGE -1
+		CHARGE 0
 		LSD
 		MULTIPLICITY 1
 		WFN_RESTART_FILE_NAME xtb-meta.wfn
