@@ -1,7 +1,7 @@
 &GLOBAL
 	RUN_TYPE MD
 	PRINT_LEVEL LOW
-	PROJECT_NAME xtb-meta
+	PROJECT_NAME xtb-meta-V1
 &END GLOBAL
 
 &FORCE_EVAL
@@ -9,6 +9,8 @@
    STRESS_TENSOR ANALYTICAL
 
    &DFT
+		BASIS_SET_FILE_NAME  /afs/cad/linux/cp2k/6.1.0/data/BASIS_MOL      OPT
+		POTENTIAL_FILE_NAME  /afs/cad/linux/cp2k/6.1.0/data/POTENTIAL
 		CHARGE -1
 		LSD
 		MULTIPLICITY 1
@@ -48,14 +50,14 @@
 		!&END CELL
 		&CELL
       		 ! cubic unit cell
-			A [angstrom]               18.64459490    0.00000000    0.00000000
-			B [angstrom]                0.00000000   18.64459490    0.00000000
-			C [angstrom]                0.00000000    0.00000000   18.64459490
+			A [angstrom]               34.344    0.00000000    0.00000000
+			B [angstrom]                0.00000000   34.691    0.00000000
+			C [angstrom]                0.00000000    0.00000000   35.262
             		PERIODIC XYZ
     		&END CELL
 		&TOPOLOGY
 			COORD_FILE_FORMAT XYZ
-			COORD_FILE_NAME sn2-rx-final.xyz
+			COORD_FILE_NAME solvated-me3cl.xyz
 			&CENTER_COORDINATES
 			&END CENTER_COORDINATES
 		&END TOPOLOGY
@@ -106,9 +108,9 @@
   
 	&MD
 		ENSEMBLE NVT
-		STEPS 120000
-		TIMESTEP 0.5
-		TEMPERATURE 298.15
+		STEPS 1000
+		TIMESTEP [fs] 1.0 
+		TEMPERATURE [K] 298.15
 		&THERMOSTAT
 			TYPE NOSE      
 			&NOSE
