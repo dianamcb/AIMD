@@ -78,7 +78,7 @@
 		&END RESTART_HISTORY
 		&TRAJECTORY
 			&EACH
-				MD 2
+				MD 10
 			&END EACH
 		&END TRAJECTORY
 	&END PRINT
@@ -103,10 +103,10 @@
 			REGION GLOBAL
 			TYPE NOSE      
 			&NOSE
-	         LENGTH 4
-	         YOSHIDA 7
-				TIMECON 50
-	         MTS 4
+	         	LENGTH 4
+	         	YOSHIDA 7
+			TIMECON 50
+	         	MTS 4
 			&END NOSE
 		&END THERMOSTAT
 	&END MD
