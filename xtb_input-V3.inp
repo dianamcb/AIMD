@@ -133,10 +133,6 @@
 	!          &END QUADRATIC
 		!     &END WALL
 			&END METAVAR
-			&METAVAR 2
-				COLVAR 2
-				SCALE 0.1
-			&END METAVAR
    
 			&PRINT
 				&COLVAR
