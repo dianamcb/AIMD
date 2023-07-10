@@ -83,16 +83,27 @@
 			&END CENTER_COORDINATES
 		&END TOPOLOGY
 
+        &KIND C
+            ELEMENT C
+            BASIS_SET DZVP-MOLOPT-SR-GTH
+            POTENTIAL GTH-PBE-q4
+        &END KIND C
+        &KIND Cl
+            ELEMENT Cl
+            BASIS_SET DZVP-MOLOPT-SR-GTH
+            POTENTIAL GTH-PBE-q7
+        &END KIND Cl
+
 		#C-Cl
 		&COLVAR
-			&DISTANCE
-				ATOMS 1 2
-			&END
-		!	&COORDINATION
-		!		ATOMS_FROM 1
-		!		ATOMS_TO 2
-		!		R0 [angstrom] 1.8
-		!	&END COORDINATION
+			!&DISTANCE
+			!	ATOMS 1 2
+			!&END
+			&COORDINATION
+				ATOMS_FROM 1
+				ATOMS_TO 2
+				R0 [angstrom] 4.72
+			&END COORDINATION
 		&END COLVAR
 	&END SUBSYS
 &END FORCE_EVAL
@@ -124,7 +135,7 @@
   
 	&MD
 		ENSEMBLE NVT
-		STEPS 1000
+		STEPS 100
 		TIMESTEP [fs] 1.0 
 		TEMPERATURE [K] 298.15
 		&THERMOSTAT
